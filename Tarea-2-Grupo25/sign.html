@@ -1,0 +1,84 @@
+<?php include 'include/header.html'; ?>
+<!-- Si el usuario tiene sesión iniciada redireccionar a perfil -->
+<?php session_start();
+if(isset($_SESSION['id'])&&!empty($_SESSION['id'])){
+   header("Location: perfil.html");
+   exit();
+}?>
+<head>
+    <link rel="shortcut icon" href="#" />
+        <link rel="stylesheet" href="style/estilo_sign.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.19.2/sweetalert2.min.css">  
+</head>
+
+<body>
+    <div class ="row">
+        <div class="col-md-6 mx-auto p-0">
+            <div class="card">
+                <div class="login-box">
+                    <div class="login-snip">
+                        <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Iniciar Sesión</label>
+                        <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Registrarse</label>
+                        <div class="login-space">
+                            <div class="login"> 
+                                <form class="login-form validate-form" id="formLogin">
+                                    <div class="group">
+                                        <label for="email" class="label">Correo</label>
+                                        <input id="email" name="email" type="email" class="input"  placeholder="Ingresa tu correo electronico">
+                                    </div>
+                                    <div class="group">
+                                        <label for="password" class="label">Contraseña</label>
+                                        <input id="password" name="password" type="password" class="input" data-type="password" placeholder="Ingresa tu contraseña">
+                                    </div>
+                                    <div class="group">
+                                        <input id="check" type="checkbox" class="check" checked>
+                                        <label for="check"><span class="icon"></span>  Recordarme</label>
+                                    </div>
+                                    <div class="group">
+                                        <input type="submit" class="button" value="Ingresar">
+                                    </div>
+                                    <div class="hr"></div>
+                                    <div class="foot">
+                                        <a href="#">¿Olvidaste la contraseña?</a>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="sign-up-form">
+                                <form id= "formRegistro">
+                                <div class="group">
+                                    <label for="email_registro" class="label">Correo Electrónico</label>
+                                    <input id="email_registro" name="email_registro" type="email" class="input" placeholder="*Ingresa tu correo electrónico" required>
+                                </div>
+                                <div class="group">
+                                    <label for="password_registro" class="label">Contraseña</label>
+                                    <input id="password_registro" name="password_registro" type="password" class="input" data-type="password" placeholder="*Crea una contraseña" required>
+                                </div>
+                                <div class="group">
+                                    <label for="nombre_registro" class="label">Nombre</label>
+                                    <input id="nombre_registro" name="nombre_registro" type="text" class="input" placeholder="*Ingresa tu nombre" required>
+                                </div>
+                                <div class="group">
+                                    <label for="apellido_registro" class="label">Apellido</label>
+                                    <input id="apellido_registro" name="apellido_registro" type="text" class="input" placeholder="Ingresa tu apellido">
+                                </div>
+                                <div class="group">
+                                    <input type="submit" class="button" value="Continuar">
+                                </div>
+                                </form>
+                            <div class="hr"></div>
+                            <div class="foot">
+                                <label for="tab-1">¿Ya eres miembro? Inicia sesión</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body> 
+         
+<script src="/js/codigo_login.js"></script>  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.19.2/sweetalert2.min.js"></script>  
+
+</html>

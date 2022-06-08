@@ -1,0 +1,235 @@
+<?php include 'include/navbar.html'; ?>
+<?php include 'db_config.php'; ?>
+<?php require_once("validar.php");?> 
+
+<html>
+<head>
+    <title>Perfil</title>
+    
+    <style>
+        body {
+            background-color: rgb(255, 255, 255);}
+            .padding {padding: 3rem !important; margin: 0 auto;}
+            .user-card-full {overflow: hidden;}
+
+.card {
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 20px 0 rgba(107, 206, 80, 0.08);
+    box-shadow: 0 1px 20px 0 rgba(69,90,100,0.08);
+    border: none;
+    margin-bottom: 30px;
+}
+
+.m-r-0 {
+    margin-right: 0px;
+}
+
+.m-l-0 {
+    margin-left: 0px;
+}
+
+.user-card-full .user-profile {
+    border-radius: 5px 0 0 5px;
+}
+
+.bg {
+    background: -webkit-gradient(linear, left top, right top, from(#f29263), to(#ee5a6f));
+    background: linear-gradient(to right, #5a8bee, #63d1f2);
+}
+
+.user-profile {
+    padding: 20px 0;
+}
+
+.card-block {
+    padding: 1.25rem;
+}
+
+.m-b-25 {
+    margin-bottom: 25px;
+}
+
+h6 {
+    font-size: 17px;
+    font-family: 'Poppins';
+}
+
+.card .card-block p {
+    line-height: 25px;
+}
+
+@media only screen and (min-width: 1400px){
+p {
+    font-size: 14px;
+}
+}
+
+.card-block {
+    padding: 1.25rem;
+}
+
+.b-b-default {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.p-b-5 {
+    padding-bottom: 5px !important;
+}
+
+.card .card-block p {
+    line-height: 25px;
+}
+
+
+.d-flex{
+    padding: 100px 0;
+}
+
+    </style>
+
+</head>
+
+    <?php
+    session_start(); 
+    
+    $email = $_SESSION["email"];
+    $sql = "SELECT * FROM Personas WHERE email = '$email'";
+    $result = pg_query($dbconn, $sql);
+    $data = pg_fetch_all($result);  
+    
+    if($_SESSION['rol'] == 'Usuario'){
+    ?>
+    
+    <!--Los datos que se muestran cuando el usuario ingresado es un usuario común-->
+
+    <div class="page-container">
+        <div class="padding d-flex justify-content-center">
+            <div class="row container d-flex justify-content-center">
+                <div class="col-xl-6 col-md-12">
+                    <div class="card user-card-full">
+                        <div class="row ml-0 mr-0">
+                            <div class="col-sm-4 bg user-profile">
+                                <div class="card-block text-center text-white">
+                                    <div class="mb-25">
+                                        <img src="/img/user.png" class="img-thumbnail"">
+                                    </div>
+                                    <h6><?php echo $_SESSION['rol'];?></h6>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="card-block">
+                                    <h6 class="m-b-20 p-b-5 b-b-default">Perfil </h6>
+                                    <table class="table table-striped table-hover">
+                                        <tbody>
+                                            <?php                            
+                                            foreach($data as $row) {                            
+                                            ?>
+                                            <tr>
+                                                <td>Nombre:</td>
+                                                <td><?php echo $row['nombre'];?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Apellido:</td>
+                                                <td><?php echo $row['apellido'];?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Email:</td>
+                                                <td><?php echo $email;?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Suscripción:</td>
+                                                <td><?php 
+                                                    if($row['suscripcion_activa'] == '0'){
+                                                        echo("No");
+                                                    }else{
+                                                        echo("Si");
+                                                    }
+                                                ?></td>
+                                            </tr>
+                                            </tr>
+                                            <?php
+                                        }
+                                        ?> 
+                                        </tbody>
+                                    </table>	
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php
+    }
+    ?>
+
+    <?php
+    if($_SESSION['rol'] == 'Artista'){
+    ?>
+    
+    <div class="page-container">
+        <div class="padding d-flex justify-content-center">
+            <div class="row container d-flex justify-content-center">
+                <div class="col-xl-6 col-md-12">
+                    <div class="card user-card-full">
+                        <div class="row m-l-0 m-r-0">
+                            <div class="col-sm-4 bg user-profile">
+                                <div class="card-block text-center text-white">
+                                    <div class="m-b-25">
+                                        <img src="/img/user.png" class="img-thumbnail">
+                                    </div>
+                                    <h6><?php echo $_SESSION['rol'];?></h6>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="card-block">
+                                    <h6 class="m-b-20 p-b-5 b-b-default">Perfil </h6>
+                                    <table class="table table-striped table-hover">
+                                        <tbody>
+                                            <?php                            
+                                            foreach($data as $row) {                            
+                                            ?>
+                                            <tr>
+                                                <td>Nombre:</td>
+                                                <td><?php echo $row['nombre'];?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Apellido:</td>
+                                                <td><?php echo $row['apellido'];?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Email:</td>
+                                                <td><?php echo $_SESSION["email"];?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Nombre Artistico:</td>
+                                                <td><?php echo $row['nombre_artistico'];?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Verificado:</td>
+                                                <td><?php 
+                                                    if($row['verificado'] == '1'){
+                                                        echo("Si");
+                                                    }else{
+                                                        echo("No");}?></td>
+                                            </tr>
+                                            <?php
+                                        }
+                                        ?> 
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php
+}
+
+?> 
+</body>
+</html>

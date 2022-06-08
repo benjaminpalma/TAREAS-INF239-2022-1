@@ -1,10 +1,114 @@
 <?php include 'header.html'; ?>
-<body>
-    <nav class="nav bg-gray-black text-dark" style="background-color: rgb(240,240,240);">
-        <div class="nav p-3 ms-4">
-            <a class="navbar-brand" href="../index.html">Inicio</a>
-            <a class="navbar-brand" href="../html/who.html">Quienes Somos</a>
-            <a class="navbar-brand" href="../html/tabla.html">Tabla</a>
-            <a class="navbar-brand" href="#">Chiste</a>
+<style>
+  .navbar{
+    background: linear-gradient(to right, #fabbd0, #f857a6);
+    font:600 15px/18px 'Poppins', sans-serif;
+  }
+  .navbar-brand{
+    color:black;
+    transition: 0.3s;
+  }
+
+  .navbar-brand:hover{
+    color:rgb(255, 255, 255);
+  }
+  .navbar-toggler-icon{
+    color:white;
+  }
+
+  .navbar-brand .material-icons,
+  .nav-link .material-icons{
+    color:rgb(0, 0, 0);
+    font-size: 16px;
+    padding: 0px 10px 0px 0px;
+  }
+  
+  .nav-link,
+  .nav-link .dropdown-toggle{
+    color:black;
+    width: 130px;
+    text-align: center;
+
+  }
+  .nav-link:hover,
+  .nav-link .dropdown-toggle{
+    color: aliceblue;
+  }
+
+</style>
+
+<!-- Navbar en caso de artista -->
+<?php
+session_start();
+if($_SESSION['rol'] == 'Artista'){
+  ?>
+    <body>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#"><i class="fas fa-music"></i>SPOTIFY TRUCHO</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/inicio.html">Inicio</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/crudSongs.html"">Canciones</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/crudAlbums.html">Albumes</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Más
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                      <li><a class="dropdown-item" href="/perfil.html">Perfil</a></li>
+                      <li><a class="dropdown-item" href="/logout.php">Cerrar Sesión</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+<?php
+}       
+?>
+
+<!-- Navbar en caso de usuario -->
+<?php
+if($_SESSION['rol'] == 'Usuario'){
+  ?>
+  <body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#"><i class="fas fa-music"></i>SPOTIFY TRUCHO</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="/inicio.html">Inicio</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/listSongs.html">Canciones</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Más
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <li><a class="dropdown-item" href="/perfil.html">Perfil</a></li>
+                  <li><a class="dropdown-item" href="/logout.php">Cerrar Sesión</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
         </div>
-    </nav>
+      </nav>
+      <?php
+    }       
+    ?>

@@ -1,0 +1,126 @@
+<?php include 'include/navbar.html'; ?>
+<?php include 'db_config.php'; ?>
+<?php require_once("validar.php"); ?>
+
+<head>
+    <link href="style/estilo_crud.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vanilla-datatables@latest/dist/vanilla-dataTables.min.css" rel="stylesheet" type="text/css">
+
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-datatables@latest/dist/vanilla-dataTables.min.js" type="text/javascript"></script>
+</head>
+<style>
+    body{
+      background: linear-gradient(to right, #ffffff, #ffffff);
+    }
+  </style>
+
+<?php
+$query = "  SELECT  
+                Canciones.id as id,
+                Canciones.fecha_composicion as fecha, 
+                Canciones.nombre as nombre_cancion,
+                Canciones.letra as letra,
+                array_to_string(array_agg(distinct Albumes.nombre),' , ') AS albumes,
+                array_to_string(array_agg(distinct Artistas.nombre_artistico),' , ') AS artistas 
+            FROM Albumes
+            RIGHT JOIN Album_tiene_cancion ON Albumes.id = Album_tiene_cancion.id_album
+            RIGHT JOIN Canciones ON Album_tiene_cancion.id_cancion = Canciones.id 
+            RIGHT JOIN Artista_compuso_cancion ON Canciones.id = Artista_compuso_cancion.id_cancion
+            INNER JOIN 
+                (SELECT id, nombre_artistico FROM Personas WHERE tipo = 'Artista') AS Artistas ON Artista_compuso_cancion.id_artista = Artistas.id
+            GROUP BY
+                Canciones.id, Canciones.fecha_composicion, Canciones.nombre, Canciones.letra";
+
+$result = pg_query($dbconn, $query);
+$data = pg_fetch_all($result);
+?>
+
+<h1 id="title" class="p-3 mt-5 d-flex justify-content-center">Canciones</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive">    
+                <div class="table-wrapper">    
+                    <table id="listaCanciones" class="table table-hover" style="width:100%">
+                        <thead class="text-center">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Albumes</th> 
+                            <th>Artistas</th>                                 
+                            <th>Más</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php                            
+                            foreach($data as $dat) {                                                        
+                            ?>
+                            <tr> 
+                                <td style="font-style: italic;"><?php echo $dat['nombre_cancion']; ?></td>
+                                <td><?php echo $dat['albumes']; ?></td>
+                                <td style="width: 230px;"><?php echo $dat['artistas']?></td>  
+                                <td class='justify-content-center' style="width: 130px;">
+                                        <button class='btn btnMas' value="<?php echo $dat['id'] ?>">
+                                            <i data-toggle='tooltip' title='Más' class="fas fa-music"></i>
+                                        </button>
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                        ?>  
+                        </tbody>                                               
+                    </table>                    
+                </div>
+            </div>
+        </div>
+    </div>  
+</div>    
+    
+<!--Modal para CRUD-->
+<div class="modal fade" id="modalPROFILE" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content modal-profile">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+            </div>   
+                <div class="modal-body">
+                    <div class="row m-l-0 m-r-0">
+                        <div class="col-sm-4">
+                            <div class="m-b-25 mt-5">
+                                <img class="img-radius img-thumbnail" id="imagenid">
+                                    <div class="btn-group btn-music d-flex justify-content-center mt-2">
+                                        <button type="button" class="btn btn-info"><i class="fas fa-fast-backward"></i></button>
+                                        <button type="button" class="btn btn-info"><i class="fas fa-backward"></i></button>
+                                        <button type="button" class="btn btn-info"><i class="fas fa-pause-circle"></i></button>
+                                        <button type="button" class="btn btn-info"><i class="fas fa-play-circle"></i></button>
+                                        <button type="button" class="btn btn-info"><i class="fas fa-forward"></i></button>
+                                        <button type="button" class="btn btn-info"><i class="fas fa-fast-forward"></i></button>
+                                    </div>
+                            </div>
+                        </div>
+                    <div class="col-sm-8">
+                        <div class="card-block">
+                            <ul class="list-group">
+                                <label for="nombre_cancion">Nombre:</label>
+                                <li class="list-group-item" id="nombre_cancion"></li>
+                                <label for="artistas">Artistas:</label>
+                                <li class="list-group-item" id="artistas"></li>
+                                <label for="artistas">Albumes:</label>
+                                <li class="list-group-item" id="albumes"></li>
+                                <label for="artistas">Fecha:</label>
+                                <li class="list-group-item" id="fecha"></li>
+                                <label for="artistas">Letra:</label>
+                                <li style="overflow: scroll;height: 200px;"  class="list-group-item" id="letra"></li>
+                            </ul>
+                        </div> 
+                    </div> 
+                </div>
+            </div>
+        </div> 
+    </div> 
+</div> 
+
+</body>
+
+<script type="text/javascript" src="/js/song_profile.js"></script>  
