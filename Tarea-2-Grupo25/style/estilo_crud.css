@@ -105,9 +105,11 @@ table.table .avatar {
 .modal .modal-crud {
 	max-width: 400px;
 }
+
 .modal .modal-header, .modal .modal-body, .modal .modal-footer {
 	padding: 20px 30px;
 }
+
 .modal .modal-content {
 	border-radius: 15px;
 	font-size: 14px;
@@ -117,6 +119,7 @@ table.table .avatar {
 	background: #ecf0f1;
 	border-radius: 0 0 3px 3px;
 }
+
 .modal .modal-title {
 	display: inline-block;
 }

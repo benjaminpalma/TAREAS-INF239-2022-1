@@ -1,8 +1,8 @@
 
  document.addEventListener("DOMContentLoaded", function(event) {
     var dataTable = new DataTable("#tablaCanciones",{
-        fixedHeight: true,
         lastText: "Último",
+        fixedHeight: true,
         firstText: "Primero",
         prevText: "Anterior",
         nextText: "Siguiente",
@@ -33,7 +33,6 @@ $("#btnNuevo").click(function(){
     document.querySelector(".modal-header").style.backgroundColor = "#eb5e92";
     document.querySelector(".modal-header").style.color = "white";
     document.querySelector(".modal-title").textContent = "Nueva Canción";   
-
     $("#modalCRUD_song").modal("show");        
     id=null;
     opcion = 1; //alta
@@ -43,7 +42,7 @@ $(document).on("click", ".btnEditar", function(){
     id = $(this).val();
     opcion = 2 //editar
     $.ajax({
-        url:"getData_songs.php",
+        url:"../php/getData_songs.php",
         method:"POST",
         data:{id:id},
         dataType:"json",
@@ -69,7 +68,7 @@ $(document).on("click", ".btnBorrar", function(){
     var respuesta = confirm("¿Está seguro de eliminar el registro: "+id+"?");
     if(respuesta){
         $.ajax({
-            url: "crud_song.php",
+            url: "../php/crud_song.php",
             type: "POST",
             dataType: "json",
             data: {opcion:opcion, id:id},
@@ -92,7 +91,7 @@ $("#formCanciones").submit(function(e){
         window.alert('La canción debe tener un nombre y pertenecer a un album');
     }else{
     $.ajax({
-        url: "crud_song.php",
+        url: "../php/crud_song.php",
         type: "POST",
         dataType: "json",
         data: {nombre:nombre, fecha:fecha, letra:letra, id:id, opcion:opcion, album:album},

@@ -1,6 +1,6 @@
 <?php
-require("db_config.php");
-require("validar.php");
+require('../db_config.php');
+require('../php/validar.php');
 
 // Recepción de los datos enviados mediante POST desde el JS   
 
@@ -43,4 +43,4 @@ switch($opcion){
         echo pg_last_error($dbconn);    
 }
 
-print json_encode($data, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
+echo json_encode($mensaje);

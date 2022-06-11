@@ -22,41 +22,42 @@ document.addEventListener("DOMContentLoaded", function(event) {
             }
         ]
     });
+
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    }) 
 });
 
 $(document).ready(function(){
 
-$('[data-toggle="tooltip"]').tooltip();
-$("body").tooltip({ selector: '[data-toggle=tooltip]' });
-
-$("#btnNuevo").click(function(){
-    $("#formAlbumes").trigger("reset");
-    $(".modal-header").css("background-color", "#eb5e92");
-    $(".modal-header").css("color", "white");
-    $(".modal-title").text("Nuevo Album");            
+$("#btnNuevo").click(function(){    
+    document.getElementById("formAlbumes").reset();
+    document.querySelector(".modal-header").style.backgroundColor = "#eb5e92";
+    document.querySelector(".modal-header").style.color = "white";
+    document.querySelector(".modal-title").textContent = "Nuevo Album";          
     $("#modalCRUD").modal("show");        
     id=null;
-    opcion = 1; //alta
+    opcion = 1; 
 });    
     
-  
 //botón EDITAR    
 $(document).on("click", ".btnEditar", function(){
     id = $(this).val();
-    opcion = 2 //borrar
+    opcion = 2 //editar
     $.ajax({
-        url:"getData_albums.php",
+        url:"../php/getData_albums.php",
         method:"POST",
         data:{id:id},
         dataType:"json",
         success:function(data)
         {
-         $('#nombre').val(data.nombre);
-         $('#imagen').val(data.imagen);
-         $('#fecha').val(data.fecha);
-         $(".modal-header").css("background-color", "#204986");
-         $(".modal-header").css("color", "white"); 
-         $('.modal-title').text("Editar Album");
+         document.getElementById("nombre").value = data.nombre;
+         document.getElementById("imagen").value = data.imagen;
+         document.getElementById("fecha").value = data.fecha;
+         document.querySelector(".modal-header").style.backgroundColor = "#204986";
+         document.querySelector(".modal-header").style.color = "white";
+         document.querySelector(".modal-title").textContent = "Editar Album";
          $('#modalCRUD').modal('show');
         }
         
@@ -72,11 +73,12 @@ $(document).on("click", ".btnBorrar", function(){
     var respuesta = confirm("¿Está seguro de eliminar el registro: "+id+"? Deberá actualizar las canciones que pertenecían a este álbum");
     if(respuesta){
         $.ajax({
-            url: "crud_album.php",
+            url: "../php/crud_album.php",
             type: "POST",
             dataType: "json",
             data: {opcion:opcion, id:id},
-            success: function(){
+            success: function(response){
+                window.alert(response);
                 location.reload();
             }
         });
@@ -85,19 +87,27 @@ $(document).on("click", ".btnBorrar", function(){
     
 $("#formAlbumes").submit(function(e){
     e.preventDefault();    
-    nombre = $.trim($("#nombre").val());
-    fecha = $("#fecha").val();
-    imagen = $.trim($("#imagen").val());    
+    nombre = document.getElementById("nombre").value.trim();
+    fecha = document.getElementById("fecha").value.trim();
+    imagen = $.trim($("#imagen").val());
+
+    if(nombre.replace(/\s+/g, '') == "") {
+        window.alert('El album debe tener un nombre');
+    }else{
     $.ajax({
-        url: "crud_album.php",
+        url: "../php/crud_album.php",
         type: "POST",
         dataType: "json",
         data: {nombre:nombre, fecha:fecha, imagen:imagen, id:id, opcion:opcion},
-        success: function(){  
-            location.reload();   
-        }        
-    });
-    $("#modalCRUD").modal("hide");    
-    
-}); 
+        success: function(response){  
+            mensaje = response;
+            window.alert(mensaje);
+            location.reload();
+        },     
+        error: function(){
+            window.alert('error');
+        }
+    })
+    $("#modalCRUD").modal("hide");}
+});
 

@@ -1,28 +1,27 @@
-<?php require_once("validar.php"); ?>
+<?php require('../php/validar.php'); ?>
 
 <?php if($_SESSION['rol'] == 'Usuario'){
-    header("Location: inicio.html");
+    header("Location: ../index.html");
     exit("Página Privada");
 } ?>
 
-<?php include 'include/navbar.html'; ?>
-<?php include 'db_config.php'; ?>
+<?php include '../include/navbar.html'; ?>
+<?php include '../db_config.php'; ?>
 
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/vanilla-datatables@latest/dist/vanilla-dataTables.min.css" rel="stylesheet" type="text/css">
-
-    <script src="https://cdn.jsdelivr.net/npm/vanilla-datatables@latest/dist/vanilla-dataTables.min.js" type="text/javascript"></script>
-    
+    <link   href="https://cdn.jsdelivr.net/npm/vanilla-datatables@latest/dist/vanilla-dataTables.min.css" 
+            rel="stylesheet" 
+            type="text/css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.27.1/slimselect.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.27.1/slimselect.min.css" rel="stylesheet"></link>
-
-    <link href="style/estilo_crud.css" rel="stylesheet">
+    <link   href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.27.1/slimselect.min.css" 
+            rel="stylesheet"></link>
+    <link href="../style/estilo_crud.css" rel="stylesheet">
 </head>
 
 <!--INICIO del cont principal-->
 
 <?php
-$consulta = 'SELECT id, nombre, letra , fecha_composicion as "fecha" FROM Canciones;';
+$consulta = 'SELECT id, nombre, letra , fecha_composicion as "fecha" FROM Canciones ORDER BY id;';
 $result = pg_query($dbconn, $consulta);
 $songs = pg_fetch_all($result);
 
@@ -45,7 +44,7 @@ $albums = pg_fetch_all($result_album);
 </div>
 
 
-<div class="container">
+<div class="container mb-5">
     <div class="row">
         <div class="col-lg-12">
             <div class="table-responsive">    
@@ -91,14 +90,14 @@ $albums = pg_fetch_all($result_album);
             </div>
         </div>
     </div>  
-</div>    
+</div>  
 
 <!--Modal para CRUD-->
-<div class="modal fade" id="modalCRUD_song" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalCRUD_song" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-crud" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <h5 class="modal-title"></h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -136,10 +135,18 @@ $albums = pg_fetch_all($result_album);
     </div>
 </div>  
 
+<footer class="sticky-bottom bg-white">
+    <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+            <span>Tarea 2 INF239 &copy; Grupo25 2022-1</span>
+        </div>
+    </div>
+</footer>
+
+<!-- código propio JS --> 
+<script type="text/javascript" src="../js/songs.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/vanilla-datatables@latest/dist/vanilla-dataTables.min.js" 
+        type="text/javascript"></script>
 </body>
 
-<!--FIN del cont principal-->
-
-    <!-- código propio JS --> 
-    <script type="text/javascript" src="/js/songs.js"></script>  
 </html>

@@ -1,6 +1,6 @@
 <?php
-require("db_config.php");
-require("hash_password.php");
+require('../db_config.php');
+require('../php/hash_password.php');
 
 //recepción de datos enviados mediante POST desde ajax
 $email = (isset($_POST['email'])) ? $_POST['email'] : '';
@@ -16,7 +16,6 @@ if (!$result) {
 }
 
 $arr = pg_fetch_array($result, 0, PGSQL_NUM);
-//$row = pg_fetch_row($result);
 $password_hashed = $arr[1];
 
 if (password_verify($password, $password_hashed)) {

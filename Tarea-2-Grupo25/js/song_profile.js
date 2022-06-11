@@ -1,6 +1,7 @@
 
  document.addEventListener("DOMContentLoaded", function(event) {
     var dataTable = new DataTable("#listaCanciones",{
+        fixedHeight: true,
         sortable: false,
         lastText: "Último",
         firstText: "Primero",
@@ -23,12 +24,12 @@
 $(document).on("click", ".btnMas", function(){
         id = $(this).val();
         $.ajax({
-            url:"listSongs.php",
+            url:"../php/listSongs.php",
             method:"POST",
             data:{id:id},
             dataType:"json",
             success:function(data)
-            {   
+            {   console.log(data);
                 document.getElementById("nombre_cancion").innerHTML = data.nombre_cancion;
                 document.getElementById("letra").innerHTML = data.letra;
                 document.getElementById("fecha").innerHTML = data.fecha;

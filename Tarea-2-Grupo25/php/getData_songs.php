@@ -1,7 +1,8 @@
 <?php
-require("db_config.php");
-require("validar.php");
+require('../db_config.php');
+require('../php/validar.php');
 
+//Realiza el READ del CRUD de las canciones
 if(isset($_POST["id"])){
  $id = $_POST["id"];
  $output = array();

@@ -1,0 +1,103 @@
+<?php include 'include/navbar.html'; ?>
+<?php include 'db_config.php'; ?>
+
+<head>
+    <style>
+        :root {
+  --jumbotron-padding-y: 3rem;
+}
+
+.jumbotron {
+  padding-top: var(--jumbotron-padding-y);
+  padding-bottom: var(--jumbotron-padding-y);
+  margin-bottom: 0;
+  background-image: url("img/header.png");
+  background-size: cover;
+}
+@media (min-width: 768px) {
+  .jumbotron {
+    padding-top: calc(var(--jumbotron-padding-y) * 2);
+    padding-bottom: calc(var(--jumbotron-padding-y) * 2);
+  }
+}
+
+.jumbotron p:last-child {
+  margin-bottom: 0;
+}
+
+.jumbotron-heading {
+  font-weight: 300;
+}
+
+.jumbotron .container {
+  max-width: 40rem;
+}
+
+img{
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%);
+}
+.box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
+    </style>
+</head>
+
+<main role="main">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">Spotify Trucho</h1>
+            <p class="lead text-muted">Servicio de música digital con acceso a millones de artistas y canciones. Desarrollado por el grupo 25.</p>
+            <p>
+                <a href="/html/sign.html" class="btn btn-primary my-2">Ingresar</a>
+                <a href="/html/sign.html" class="btn btn-secondary my-2">Registrarse</a>
+            </p>
+        </div>
+    </section>
+  
+    <div class="album py-5 bg-light">
+        <div class="container">
+  
+            <div class="row">
+              <div class="col-md-4">
+                <div class="card mb-4 box-shadow">
+                  <img class="card-img-top" src="img/1.png" alt="Card image cap">
+                  <div class="card-body">
+                    <p class="card-text">Los beneficios del artista musical incluyen modificar y crear nuevas canciones y albums.</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Más</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card mb-4 box-shadow">
+                  <img class="card-img-top" src="img/2.png" alt="Card image cap">
+                  <div class="card-body">
+                    <p class="card-text">Los usuarios pueden acceder a los albums y canciones, ver quienes participaron de su composición y además ver la letra de las canciones.</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Más</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card mb-4 box-shadow">
+                  <img class="card-img-top" src="img/3.png" alt="Card image cap">
+                  <div class="card-body">
+                    <p class="card-text">El usuario puede escoger entre un plan gratuito, sin compromiso y un plan premium.</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Más</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+      </main>
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Tarea 2 INF239 &copy; Grupo25 2022-1</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,6 +1,6 @@
 <?php
-require("db_config.php");
-require("validar.php");
+require('../db_config.php');
+require('../php/validar.php');
 
 // Recepción de los datos enviados mediante POST desde el JS   
 
@@ -48,6 +48,7 @@ switch($opcion){
         }
         else{
             //actualizar albumes a los que pertenece
+            //primero se borran relaciones existentes, luego se añaden las nuevas
             $deleteAlbums = "DELETE FROM Album_tiene_cancion WHERE id_cancion=$1";
             $result = pg_query_params($dbconn, $deleteAlbums, array($id_cancion));
             if(!$result){

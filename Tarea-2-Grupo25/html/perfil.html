@@ -1,6 +1,6 @@
-<?php include 'include/navbar.html'; ?>
-<?php include 'db_config.php'; ?>
-<?php require_once("validar.php");?> 
+<?php include '../include/navbar.html'; ?>
+<?php include '../db_config.php'; ?>
+<?php require_once('../php/validar.php');?> 
 
 <html>
 <head>
@@ -45,10 +45,6 @@
     padding: 1.25rem;
 }
 
-.m-b-25 {
-    margin-bottom: 25px;
-}
-
 h6 {
     font-size: 17px;
     font-family: 'Poppins';
@@ -89,12 +85,10 @@ p {
 
 </head>
 
-    <?php
-    session_start(); 
-    
+    <?php 
     $email = $_SESSION["email"];
-    $sql = "SELECT * FROM Personas WHERE email = '$email'";
-    $result = pg_query($dbconn, $sql);
+    $sql = "SELECT * FROM Personas WHERE email = $1";
+    $result = pg_query_params($dbconn, $sql, array($email));
     $data = pg_fetch_all($result);  
     
     if($_SESSION['rol'] == 'Usuario'){
@@ -107,13 +101,11 @@ p {
             <div class="row container d-flex justify-content-center">
                 <div class="col-xl-6 col-md-12">
                     <div class="card user-card-full">
-                        <div class="row ml-0 mr-0">
+                        <div class="row m-l-0 m-r-0">
                             <div class="col-sm-4 bg user-profile">
                                 <div class="card-block text-center text-white">
-                                    <div class="mb-25">
-                                        <img src="/img/user.png" class="img-thumbnail"">
-                                    </div>
-                                    <h6><?php echo $_SESSION['rol'];?></h6>
+                                    <img src="../img/user.png" class="img-thumbnail"">
+                                    <h6 class="mt-2"><?php echo $_SESSION['rol'];?></h6>
                                 </div>
                             </div>
                             <div class="col-sm-8">
@@ -177,9 +169,9 @@ p {
                             <div class="col-sm-4 bg user-profile">
                                 <div class="card-block text-center text-white">
                                     <div class="m-b-25">
-                                        <img src="/img/user.png" class="img-thumbnail">
+                                        <img src="../img/user.png" class="img-thumbnail">
                                     </div>
-                                    <h6><?php echo $_SESSION['rol'];?></h6>
+                                    <h6 class="mt-2"><?php echo $_SESSION['rol'];?></h6>
                                 </div>
                             </div>
                             <div class="col-sm-8">
@@ -229,7 +221,6 @@ p {
     </div>
     <?php
 }
-
 ?> 
 </body>
 </html>

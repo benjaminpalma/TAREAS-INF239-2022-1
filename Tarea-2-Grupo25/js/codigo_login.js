@@ -13,7 +13,7 @@ formulario_l.addEventListener('submit', function(e){
     });
     return false; 
     }else{
-        fetch("login.php", {
+        fetch("../php/login.php", {
         method: "POST",
         body: form
     })
@@ -32,7 +32,6 @@ formulario_l.addEventListener('submit', function(e){
                 confirmButtonText:'Continuar'
             }).then((result) => {
                 if(result.value){
-                    //window.location.href = "vistas/pag_inicio.php";
                     window.location.href = "perfil.html";
                 }
             })         
@@ -56,7 +55,7 @@ $('#formRegistro').submit(function(e){
         });
         return false; 
     }else{
-        fetch("registro.php", {
+        fetch("../php/registro.php", {
         method: "POST",
         body: form
     })

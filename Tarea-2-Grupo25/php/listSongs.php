@@ -1,9 +1,9 @@
-<?php include 'db_config.php'; ?>
-<?php require_once("validar.php"); ?>
+<?php include '../db_config.php'; ?>
+<?php require_once('../php/validar.php'); ?>
 <?php
 
+// Recepción del id de la cancion desde JS     
 $id_cancion = $_POST["id"];
-$response = array();
 $query = "  SELECT  
                 Canciones.fecha_composicion AS fecha, 
                 Canciones.nombre AS nombre_cancion,
@@ -27,11 +27,17 @@ if(!$result){
     echo pg_last_error($dbconn);
 }
 else{
+    // Si no hay un error, se obtiene la fila como un array
+    // Se aplica la funcion nl2br para que las letras pongan br donde hay un salto de linea   
     $arr = pg_fetch_array($result, 0, PGSQL_ASSOC);
     $arr['letra'] = nl2br($arr['letra']);
 }
+// Luego, si es que el album al que pertenece la cancion no tiene nignuna imagen asociada, se usa el cd de default.   
+if($arr['imagen'] == '' || $arr['imagen'] == null){
+    $arr['imagen'] = "../img/cd-icon.png";
+}
+// Envio del array   
 echo json_encode($arr);
-
 ?>
 
 
