@@ -73,7 +73,7 @@ class Canciones(db.Model):
     def create(cls, cancion):
         return cancion.save()
 
-    
+
     def save(self):
         try:
             db.session.add(self)
@@ -81,9 +81,11 @@ class Canciones(db.Model):
             return self
         except:
             return False
-    
+
+
     def update(self):
-        self.save()
+        return self.save()
+
 
     def delete(self):
         try:
@@ -93,7 +95,7 @@ class Canciones(db.Model):
             return self
         except:
             return False
-    
+
     def json(self):
         return {
             'id': self.id,
@@ -118,7 +120,7 @@ class Facturas(db.Model):
     def create(cls, factura):
         return factura.save()
 
-        
+
     def save(self):
         try:
             db.session.add(self)
@@ -128,7 +130,7 @@ class Facturas(db.Model):
             return False
         
     def update(self):
-        self.save()
+        return self.save()
 
     def delete(self):
         try:
@@ -146,7 +148,7 @@ class Facturas(db.Model):
             'monto_facturado'   : self.monto_facturado,
             'metodo_de_pago'    : self.metodo_de_pago,
             'estado'            : self.estado,
-            'fecha_facturacion'  : self.fecha_facturacion,
+            'fecha_facturacion' : self.fecha_facturacion,
             'fecha_vencimiento' : self.fecha_vencimiento,
             'fecha_hora_pago'   : self.fecha_hora_pago
         }
@@ -190,7 +192,3 @@ class Reproducciones(db.Model):
             'cantidad_reproducciones': self.cantidad_reproducciones,
             'ultima_reproduccion': self.ultima_reproduccion
         }
-
-def top10(id_persona):
-    top = db.Query(Reproducciones).filter(Reproducciones.cantidad_reproducciones > 0)
-    return top;
